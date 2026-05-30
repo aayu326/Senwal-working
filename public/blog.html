@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog — Sanwal & Associates</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --blue-dark: #07152b; --gold: #c9a84c; --gold-light: #e2c87a;
+  --white: #ffffff; --off-white: #f5f2ec; --text-muted: #8aaec8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Jost', sans-serif; background: var(--white); color: var(--blue-dark); }
+.topbar {
+  background: var(--blue-dark); padding: 12px 60px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.topbar a { color: var(--text-muted); text-decoration: none; font-size: 13px; transition: color 0.3s; }
+.topbar a:hover { color: var(--gold); }
+.logo { font-family: 'Cormorant Garamond', serif; color: var(--white); font-size: 20px; font-weight: 600; }
+.logo span { color: var(--gold); }
+
+/* Hero */
+.post-hero {
+  background: var(--blue-dark); padding: 80px 60px 60px;
+  position: relative; overflow: hidden;
+}
+.post-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(7,21,43,0.95) 50%, rgba(201,168,76,0.08));
+}
+.post-hero-img {
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  filter: brightness(0.25); z-index: 0;
+}
+.post-hero-content { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
+.post-tag {
+  display: inline-block; background: rgba(201,168,76,0.15); border: 1.5px solid rgba(201,168,76,0.35);
+  color: var(--gold); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  padding: 7px 18px; margin-bottom: 24px; font-weight: 700;
+}
+.post-hero h1 {
+  font-family: 'Cormorant Garamond', serif; color: var(--white);
+  font-size: clamp(30px, 4.5vw, 54px); font-weight: 400; line-height: 1.2; margin-bottom: 20px;
+}
+.post-meta { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+.post-meta span { color: var(--text-muted); font-size: 12px; letter-spacing: 0.8px; }
+.post-meta span strong { color: var(--gold); }
+
+/* Content */
+.post-body { max-width: 860px; margin: 0 auto; padding: 64px 60px; }
+.post-content { font-size: 16px; line-height: 1.95; color: #333; font-weight: 300; }
+.post-content h2 { font-family: 'Cormorant Garamond', serif; font-size: 30px; color: var(--blue-dark); margin: 40px 0 16px; font-weight: 500; }
+.post-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--blue-dark); margin: 32px 0 12px; font-weight: 500; }
+.post-content p { margin-bottom: 20px; }
+.post-content ul, .post-content ol { padding-left: 24px; margin-bottom: 20px; }
+.post-content li { margin-bottom: 8px; line-height: 1.7; }
+.post-content strong { color: var(--blue-dark); font-weight: 700; }
+.post-content blockquote {
+  border-left: 4px solid var(--gold); padding: 16px 24px; margin: 28px 0;
+  background: var(--off-white); font-style: italic; color: #555;
+}
+
+/* Back button */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 10px; color: var(--gold);
+  text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 40px; transition: gap 0.3s;
+}
+.back-btn:hover { gap: 16px; }
+
+/* Loading / Error */
+.loading { text-align: center; padding: 100px; color: #aaa; font-size: 15px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">Sanwal <span>&</span> Associates</div>
+  <a href="/">← Back to Website</a>
+</div>
+
+<div id="postHero" class="post-hero">
+  <div class="post-hero-img" id="heroImg"></div>
+  <div class="post-hero-content">
+    <div class="post-tag" id="heroTag">Loading...</div>
+    <h1 id="heroTitle">Loading post...</h1>
+    <div class="post-meta">
+      <span>By <strong id="heroAuthor">—</strong></span>
+      <span id="heroDate">—</span>
+      <span id="heroType">—</span>
+    </div>
+  </div>
+</div>
+
+<div class="post-body">
+  <a href="javascript:history.back()" class="back-btn">← Back to Knowledge Hub</a>
+  <div class="post-content" id="postContent">
+    <div class="loading">Loading content...</div>
+  </div>
+</div>
+
+<script>
+async function loadPost() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (!id) { document.getElementById('postContent').innerHTML = '<div class="loading">No post ID found.</div>'; return; }
+
+  try {
+    const res = await fetch(`http://localhost:8000/api/blog/${id}`);
+    if (!res.ok) throw new Error('Not found');
+    const post = await res.json();
+
+    document.title = `${post.title} — Sanwal & Associates`;
+    document.getElementById('heroTag').textContent = post.category || 'Article';
+    document.getElementById('heroTitle').textContent = post.title;
+    document.getElementById('heroAuthor').textContent = post.author || 'Sanwal & Associates';
+    document.getElementById('heroDate').textContent = formatDate(post.date);
+    document.getElementById('heroType').textContent = post.type === 'blog' ? '📰 Blog & Insights' : '📄 Firm Publication';
+
+    if (post.image) {
+      document.getElementById('heroImg').style.backgroundImage = `url('${post.image}')`;
+    }
+
+    // Render content — supports plain text and basic HTML
+    const content = post.content || '';
+    const isHTML = /<[a-z][\s\S]*>/i.test(content);
+    document.getElementById('postContent').innerHTML = isHTML
+      ? content
+      : content.split('\n\n').map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+
+  } catch (err) {
+    document.getElementById('postContent').innerHTML = '<div class="loading">Post not found or server error.</div>';
+  }
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  return new Date(dateStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+loadPost();
+</script>
+</body>
+</html>

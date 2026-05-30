@@ -1,0 +1,75 @@
+{
+  "blogs": [
+    {
+      "id": "1",
+      "type": "blog",
+      "category": "Legal Update",
+      "title": "Understanding India's Digital Personal Data Protection Act 2023",
+      "excerpt": "A practical guide for businesses on compliance obligations, data principal rights, and cross-border data transfers under India's landmark privacy law.",
+      "content": "Full blog content goes here...",
+      "author": "Sanwal & Associates",
+      "date": "2025-04-01",
+      "image": "https://picsum.photos/seed/cyber123/800/500",
+      "published": true
+    },
+    {
+      "id": "2",
+      "type": "blog",
+      "category": "LPO Insight",
+      "title": "Why US Law Firms Are Increasingly Turning to Indian LPO Providers",
+      "excerpt": "Cost efficiency, qualified talent, and time zone advantages are driving a structural shift in how US law firms approach legal operations outsourcing.",
+      "content": "Full blog content goes here...",
+      "author": "Sanwal & Associates",
+      "date": "2025-03-01",
+      "image": "https://picsum.photos/seed/office456/800/500",
+      "published": true
+    },
+    {
+      "id": "3",
+      "type": "blog",
+      "category": "Regulatory Alert",
+      "title": "IBC Amendments 2024: Key Changes for Creditors & Resolution Professionals",
+      "excerpt": "An analysis of the latest Insolvency and Bankruptcy Code amendments — what creditors, debtors, and resolution professionals need to know.",
+      "content": "Full blog content goes here...",
+      "author": "Sanwal & Associates",
+      "date": "2025-02-01",
+      "image": "https://picsum.photos/seed/justice789/800/500",
+      "published": true
+    }
+  ],
+  "publications": [
+    {
+      "id": "p1",
+      "type": "publication",
+      "category": "White Paper",
+      "title": "LPO Cost Efficiency Report 2024: India vs Onshore Legal Teams",
+      "excerpt": "A comprehensive analysis of cost benchmarks, quality outcomes, and delivery metrics comparing India-based LPO providers with traditional onshore legal teams across the US and UK.",
+      "content": "Full publication content goes here...",
+      "author": "Sanwal & Associates",
+      "date": "2024-12-01",
+      "published": true
+    },
+    {
+      "id": "p2",
+      "type": "publication",
+      "category": "Legal Bulletin",
+      "title": "DPDP Act Compliance Checklist for Indian Corporates & MNCs",
+      "excerpt": "A step-by-step compliance checklist covering data fiduciary obligations, consent management, grievance redressal, and cross-border data transfer requirements.",
+      "content": "Full publication content goes here...",
+      "author": "Sanwal & Associates",
+      "date": "2024-11-01",
+      "published": true
+    },
+    {
+      "id": "p3",
+      "type": "publication",
+      "category": "Commentary",
+      "title": "AI in Legal Practice: Opportunities, Risks & Ethical Considerations",
+      "excerpt": "An in-depth commentary on the integration of AI tools in legal workflows — covering quality control, professional responsibility, and privilege concerns.",
+      "content": "Full publication content goes here...",
+      "author": "Sanwal & Associates",
+      "date": "2024-10-01",
+      "published": true
+    }
+  ]
+}
